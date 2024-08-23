@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS snake_game_db;
-USE snake_game_db;
+CREATE DATABASE IF NOT EXISTS snake_game;
+USE snake_game;
 
 CREATE TABLE IF NOT EXISTS scores (
     id INT AUTO_INCREMENT PRIMARY KEY,

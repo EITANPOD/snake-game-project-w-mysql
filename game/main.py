@@ -62,23 +62,26 @@ def play_game():
             if snake.head.distance(segment) < 10:
                 game_over()
 
+def send_score_to_server(player_name, score):
+    try:
+        response = requests.post('http://localhost:5000/score', 
+                                 json={'player_name': player_name, 'score': score})
+        if response.status_code == 201:
+            print("Score submitted successfully")
+        else:
+            print(f"Failed to submit score. Status code: {response.status_code}")
+    except requests.RequestException as e:
+        print(f"Error connecting to server: {e}")
+
 def game_over():
     global game_is_on
     game_is_on = False
     scoreboard.game_over()
     
-    # Send score to server
+    # Get player name and send score to server
     player_name = screen.textinput("Game Over", "Enter your name:")
     if player_name:
-        try:
-            response = requests.post('http://localhost:5000/score', 
-                                     json={'player_name': player_name, 'score': scoreboard.score})
-            if response.status_code == 201:
-                print("Score submitted successfully")
-            else:
-                print("Failed to submit score")
-        except requests.RequestException:
-            print("Error connecting to server")
+        send_score_to_server(player_name, scoreboard.score)
     
     screen.ontimer(reset_game, 2000)
 

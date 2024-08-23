@@ -2,21 +2,26 @@ version: '3'
 
 services:
   flask-app:
+    container_name: flask_server
     build: .
     ports:
       - "5000:5000"
     depends_on:
-      - mysql
+      - mysql_db
 
-  mysql:
+
+  mysql_db:
+    container_name: mysql_db
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: your_mysql_root_password
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: snake_game
     volumes:
       - mysql-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "3306:3306"
+
 
 volumes:
   mysql-data:
