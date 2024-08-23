@@ -3,6 +3,7 @@ from snake import Snake
 from food import Food
 from scoreboard import Scoreboard
 import time
+import requests
 
 screen = Screen()
 screen.setup(width=1.0, height=1.0)
@@ -65,7 +66,22 @@ def game_over():
     global game_is_on
     game_is_on = False
     scoreboard.game_over()
-    screen.ontimer(reset_game, 2000)  # Wait 2 seconds before showing start button
+    
+    # Send score to server
+    player_name = screen.textinput("Game Over", "Enter your name:")
+    if player_name:
+        try:
+            response = requests.post('http://localhost:5000/score', 
+                                     json={'player_name': player_name, 'score': scoreboard.score})
+            if response.status_code == 201:
+                print("Score submitted successfully")
+            else:
+                print("Failed to submit score")
+        except requests.RequestException:
+            print("Error connecting to server")
+    
+    screen.ontimer(reset_game, 2000)
+
 
 def reset_game():
     scoreboard.clear_game_over()  # New method to clear game over message
