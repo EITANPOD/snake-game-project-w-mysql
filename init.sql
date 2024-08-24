@@ -3,5 +3,6 @@ USE snake_game;
 
 CREATE TABLE IF NOT EXISTS scores (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    player_name VARCHAR(255) NOT NULL,
     score INT NOT NULL
 );

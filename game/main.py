@@ -91,6 +91,8 @@ def reset_game():
     start_button.clear()
     start_button.goto(0, 0)
     start_button.write("Press SPACE to Start", align="center", font=("Courier", 24, "normal"))
+    screen.listen()
+    screen.onkey(start_game, "space")
     screen.update()
 
 # Create start button
