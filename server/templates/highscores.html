@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High Scores</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            color: #343a40;
+        }
+        table {
+            width: 60%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #343a40;
+            color: #fff;
+            text-transform: uppercase;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        td {
+            font-size: 16px;
+            color: #333;
+        }
+        tr:first-child th {
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        tr:last-child td {
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        .wrapper_content{display: flex;
+
+            flex-direction: column;
+
+            align-items: center;}
+    </style>
+</head>
+<body>
+    <div class='wrapper_content'>
+        <h1>High Scores</h1>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Best Score</th>
+                <th>Games Count</th>
+            </tr>
+            {% for score in highscores %}
+            <tr>
+                <td>{{ score['player_name'] }}</td>
+                <td>{{ score['highest_score'] }}</td>
+                <td>{{ score['games_played']}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
